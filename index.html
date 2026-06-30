@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRON COACH - Pro App Experience</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        /* Effetto Pulsante */
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); } 50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.8); } }
+        .glow-btn { animation: pulse-glow 2s infinite ease-in-out; }
+
+        /* Pannelli Laterali (Effetto Cambio Pagina) */
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: #09090b;
+            z-index: 100;
+            transition: right 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            overflow-y: auto;
+        }
+        @media (min-width: 768px) { .side-panel { width: 400px; border-left: 1px solid #27272a; } }
+        .side-panel.active { right: 0; }
+
+        /* Overlay Full Screen per Gioppino */
+        .full-page-overlay {
+            position: fixed;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 200;
+            transition: top 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            display: flex;
+            flex-direction: column;
+        }
+        .full-page-overlay.active { top: 0; }
+        
+        /* Stili per lo Slider manuale e automatico snap */
+        .slider-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .slider-container::-webkit-scrollbar {
+            display: none; /* Nasconde la barra di scorrimento brutta */
+        }
+        .slider-item {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white font-sans scroll-smooth overflow-x-hidden">
+
+    <nav class="p-5 border-b border-zinc-800 flex justify-between items-center bg-zinc-950/80 backdrop-blur-xl sticky top-0 z-50">
+        <h1 class="text-xl font-black tracking-tighter text-amber-500">IRON_COACH</h1>
+        <a href="#scheda-section" class="bg-amber-500 text-black font-bold px-4 py-2 rounded-full text-xs uppercase tracking-tighter">
+            Scheda AI
+        </a>
+    </nav>
+
+    <header class="max-w-4xl mx-auto mt-12 px-6 text-center">
+        <h2 class="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none italic">
+            No <span class="text-amber-500 underline decoration-zinc-800">Limits</span><br>Just Power
+        </h2>
+        <p class="text-zinc-500 text-sm mt-6 uppercase tracking-widest font-bold">L'Intelligenza Artificiale applicata al ferro.</p>
+    </header>
+
+    <section class="w-full bg-zinc-900/20 py-10 my-10 border-y border-zinc-900">
+        <div id="macroSlider" class="slider-container max-w-4xl mx-auto px-6 gap-6">
+            <div class="slider-item w-72 bg-zinc-900 p-6 rounded-3xl border border-zinc-800">
+                <span class="text-3xl block mb-3">🥩</span>
+                <h4 class="text-amber-500 font-bold uppercase text-xs mb-2">Proteine & Sintesi</h4>
+                <p class="text-zinc-400 text-xs italic">"Senza mattoni non costruisci la reggia. Punta a 2g per kg."</p>
+            </div>
+            <div class="slider-item w-72 bg-zinc-900 p-6 rounded-3xl border border-zinc-800">
+                <span class="text-3xl block mb-3">💪</span>
+                <h4 class="text-amber-500 font-bold uppercase text-xs mb-2">Massa Magra</h4>
+                <p class="text-zinc-400 text-xs italic">"Tessuto vivo attivo che brucia calorie e modella le forme."</p>
+            </div>
+            <div class="slider-item w-72 bg-zinc-900 p-6 rounded-3xl border border-zinc-800">
+                <span class="text-3xl block mb-3">🏋️‍♂️</span>
+                <h4 class="text-amber-500 font-bold uppercase text-xs mb-2">Carico Progressivo</h4>
+                <p class="text-zinc-400 text-xs italic">"Alza un po' di più ogni settimana o i muscoli non cresceranno."</p>
+            </div>
+            <div class="slider-item w-72 bg-zinc-900 p-6 rounded-3xl border border-zinc-800">
+                <span class="text-3xl block mb-3">😴</span>
+                <h4 class="text-amber-500 font-bold uppercase text-xs mb-2">Riposo Elite</h4>
+                <p class="text-zinc-400 text-xs italic">"I muscoli si distruggono in sala e si riparano a letto."</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="Academy" class="max-w-4xl mx-auto my-16 px-6">
+        <h3 class="text-2xl font-black uppercase mb-8 border-l-4 border-amber-500 pl-4">Academy Esercizi</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button onclick="togglePanel('petto')" class="flex justify-between items-center bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:bg-zinc-800 transition group cursor-pointer">
+                <span class="font-black uppercase italic tracking-tighter">Area Pettorale</span>
+                <span class="text-amber-500 group-hover:translate-x-2 transition">→</span>
+            </button>
+            <button onclick="togglePanel('dorso')" class="flex justify-between items-center bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:bg-zinc-800 transition group cursor-pointer">
+                <span class="font-black uppercase italic tracking-tighter">Area Dorsale</span>
+                <span class="text-amber-500 group-hover:translate-x-2 transition">→</span>
+            </button>
+            <button onclick="togglePanel('gambe')" class="flex justify-between items-center bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:bg-zinc-800 transition group cursor-pointer">
+                <span class="font-black uppercase italic tracking-tighter">Lower Body</span>
+                <span class="text-amber-500 group-hover:translate-x-2 transition">→</span>
+            </button>
+            <button onclick="togglePanel('braccia')" class="flex justify-between items-center bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:bg-zinc-800 transition group cursor-pointer">
+                <span class="font-black uppercase italic tracking-tighter">Arm & Shoulders</span>
+                <span class="text-amber-500 group-hover:translate-x-2 transition">→</span>
+            </button>
+        </div>
+    </section>
+
+    <section id="scheda-section" class="max-w-4xl mx-auto my-20 px-6">
+        <div class="bg-amber-500 p-1 rounded-3xl">
+            <div class="bg-zinc-950 rounded-[22px] p-8">
+                <h3 class="text-3xl font-black uppercase mb-2">Build Your AI Plan</h3>
+                <p class="text-zinc-500 text-sm mb-8 italic">Algoritmo di calcolo esercizi istantaneo.</p>
+                
+                <div class="space-y-6">
+                    <select id="obiettivo" class="w-full bg-zinc-900 border border-zinc-800 p-4 rounded-xl font-bold uppercase text-xs tracking-widest text-amber-500 outline-none cursor-pointer">
+                        <option value="massa">Focus Massa</option>
+                        <option value="definizione">Focus Cardio</option>
+                        <option value="forza">Focus Forza</option>
+                    </select>
+                    <select id="livello" class="w-full bg-zinc-900 border border-zinc-800 p-4 rounded-xl font-bold uppercase text-xs tracking-widest text-amber-500 outline-none cursor-pointer">
+                        <option value="principiante">Starter</option>
+                        <option value="avanzato">Elite</option>
+                    </select>
+                    <button onclick="creaScheda()" class="w-full bg-white text-black font-black p-5 rounded-xl uppercase tracking-tighter hover:bg-amber-500 transition cursor-pointer">
+                        Genera Programma
+                    </button>
+                </div>
+
+                <div id="resultBox" class="mt-8 space-y-3 hidden animate__animated animate__fadeIn">
+                    <div id="schedaContent"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto my-24 px-6 text-center">
+        <p class="text-zinc-500 uppercase text-[10px] font-bold tracking-[0.3em] mb-4">Solo per pochi</p>
+        <h3 class="text-4xl font-black uppercase mb-8">Accesso al Club Privato</h3>
+        <button onclick="toggleOverlay(true)" class="glow-btn bg-amber-500 text-black font-black px-10 py-5 rounded-2xl uppercase italic tracking-tighter text-xl cursor-pointer">
+            Scopri l'offerta
+        </button>
+    </section>
+
+    <div id="sidePanel" class="side-panel">
+        <div class="p-8">
+            <button onclick="togglePanel()" class="text-zinc-500 font-bold uppercase text-xs mb-10 cursor-pointer">← Chiudi Dettagli</button>
+            <div id="panelData"></div>
+        </div>
+    </div>
+
+    <div id="gioppinoOverlay" class="full-page-overlay">
+        <div class="flex-1 flex flex-col justify-center items-center p-10 text-center">
+            <span class="text-6xl mb-6">🏛️</span>
+            <h2 class="text-5xl md:text-7xl font-black uppercase italic leading-none mb-4">Palestra<br>da Gioppino</h2>
+            <p class="text-amber-500 font-bold uppercase tracking-widest text-sm mb-8 italic">Il tempio del lusso e del sudore</p>
+            
+            <div class="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl w-full max-w-sm mb-10">
+                <p class="text-zinc-500 text-xs uppercase mb-2">Abbonamento Exclusive</p>
+                <p class="text-5xl font-black">1.000 €</p>
+                <p class="text-zinc-500 text-xs mt-1">Ogni mese / Posti limitati</p>
+            </div>
+
+            <button onclick="alert('Iscrizione inviata!')" class="bg-white text-black font-black px-12 py-4 rounded-full uppercase tracking-tighter mb-6 cursor-pointer">Prenota Ora</button>
+            
+            <button onclick="toggleOverlay(false)" class="text-zinc-500 hover:text-amber-500 font-bold uppercase text-xs tracking-widest transition cursor-pointer">
+                Torna alla base
+            </button>
+        </div>
+    </div>
+
+    <footer class="p-10 text-center text-zinc-800 text-[10px] uppercase font-bold tracking-widest">
+        IRON COACH &copy; 2026 // NO PAIN NO GAIN
+    </footer>
+
+    <script>
+        // Data Gruppi Muscolari
+        const dbMuscoli = {
+            petto: { t: "Pettorali", d: "Allenare il petto significa costruire una corazza d'acciaio. Focus su spinte e adduzioni.", e: ["Panca Piana Bilanciere", "Dips alle parallele", "Croci ai cavi"] },
+            dorso: { t: "Dorsali", d: "La larghezza della schiena definisce l'atleta. Lavora su trazioni e rematori.", e: ["Trazioni alla sbarra", "Rematore Manubrio", "Pulley Basso"] },
+            gambe: { t: "Gambe", d: "Le gambe sono le fondamenta. Se non alleni le gambe, non sei un vero trainer.", e: ["Squat Pesante", "Pressa 45°", "Leg Curl"] },
+            braccia: { t: "Braccia & Spalle", d: "Dettagli che fanno la differenza. Volume e intensità sono le chiavi.", e: ["Military Press", "Curl Bilanciere", "French Press"] }
+        };
+
+        // GESTIONE LOGICA SLIDER (AUTO-SCROLL OGNI 3 SECONDI CON RILEVAMENTO MANUALE)
+        const slider = document.getElementById('macroSlider');
+        let autoScrollInterval;
+
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => {
+                const itemWidth = slider.querySelector('.slider-item').clientWidth + 24; // Larghezza elemento + gap
+                const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+                
+                if (slider.scrollLeft >= maxScrollLeft - 10) {
+                    slider.scrollTo({ left: 0, behavior: 'smooth' }); // Torna all'inizio se è alla fine
+                } else {
+                    slider.scrollBy({ left: itemWidth, behavior: 'smooth' }); // Passa al successivo
+                }
+            }, 3000); // 3000 millisecondi = 3 secondi
+        }
+
+        function stopAutoScroll() {
+            clearInterval(autoScrollInterval);
+        }
+
+        // Avvia lo scorrimento automatico
+        startAutoScroll();
+
+        // Se l'utente inizia a toccare/scorrere a mano, fermiamo temporaneamente il timer per non disturbarlo
+        slider.addEventListener('touchstart', stopAutoScroll);
+        slider.addEventListener('mousedown', stopAutoScroll);
+        slider.addEventListener('touchend', startAutoScroll);
+        slider.addEventListener('mouseup', startAutoScroll);
+
+
+        // Gestione Pannello Laterale
+        function togglePanel(key) {
+            const panel = document.getElementById('sidePanel');
+            const dataCont = document.getElementById('panelData');
+            
+            if(key) {
+                const info = dbMuscoli[key];
+                dataCont.innerHTML = `
+                    <h2 class="text-4xl font-black uppercase italic mb-4 text-amber-500">${info.t}</h2>
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-8">${info.d}</p>
+                    <h3 class="text-xs font-bold uppercase text-white mb-4">Esercizi Elite:</h3>
+                    <ul class="space-y-4">
+                        ${info.e.map(ex => `<li class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl font-bold text-xs uppercase italic">⚡ ${ex}</li>`).join('')}
+                    </ul>
+                `;
+                panel.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                panel.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Gestione Overlay Gioppino
+        function toggleOverlay(show) {
+            const overlay = document.getElementById('gioppinoOverlay');
+            if(show) {
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Generatore Scheda
+        function creaScheda() {
+            const ob = document.getElementById('obiettivo').value;
+            const res = document.getElementById('resultBox');
+            const cont = document.getElementById('schedaContent');
+            
+            const schede = {
+                massa: ["Panca 4x8", "Squat 4x10", "Trazioni 4xMax"],
+                definizione: ["Circuito 3 Giri", "Burpees 45''", "Scatti 10x100m"],
+                forza: ["Panca 5x3", "Stacco 5x2", "Squat 5x3"]
+            };
+
+            cont.innerHTML = `<p class="text-zinc-500 text-[10px] uppercase font-bold mb-4 italic">Elaborazione...</p>`;
+            res.classList.remove('hidden');
+
+            setTimeout(() => {
+                cont.innerHTML = schede[ob].map(s => `
+                    <div class="bg-zinc-900 p-4 border border-zinc-800 rounded-xl flex justify-between">
+                        <span class="font-bold uppercase text-xs italic">${s.split(' ')[0]}</span>
+                        <span class="text-amber-500 font-bold text-xs">${s.split(' ')[1]}</span>
+                    </div>
+                `).join('');
+            }, 600);
+        }
+    </script>
+</body>
+</html>
