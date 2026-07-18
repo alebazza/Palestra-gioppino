@@ -1,906 +1,572 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>IRON ELITE | AI Performance Platform</title>
 
+<!-- Tailwind CDN e Animate.css -->
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Inter,sans-serif;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-
-background:
-
-radial-gradient(circle at top left,
-rgba(245,158,11,.18),
-transparent 35%),
-
-radial-gradient(circle at bottom right,
-rgba(255,255,255,.05),
-transparent 45%),
-
-#050505;
-
-overflow-x:hidden;
-
-color:white;
-
-}
-
-/* ====================== */
-
-body::before{
-
-content:"";
-
-position:fixed;
-
-width:200%;
-
-height:200%;
-
-left:-50%;
-
-top:-50%;
-
-background-image:
-
-radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);
-
-background-size:30px 30px;
-
-animation:gridMove 20s linear infinite;
-
-opacity:.25;
-
-pointer-events:none;
-
-}
-
-@keyframes gridMove{
-
-0%{
-
-transform:translateY(0);
-
-}
-
-100%{
-
-transform:translateY(60px);
-
-}
-
-}
-
-/* ===================== */
-
-.glow{
-
-position:fixed;
-
-width:700px;
-
-height:700px;
-
-background:
-
-radial-gradient(circle,
-
-rgba(245,158,11,.22),
-
-transparent 70%);
-
-filter:blur(90px);
-
-pointer-events:none;
-
-left:50%;
-
-top:0;
-
-transform:translateX(-50%);
-
-animation:glow 10s ease-in-out infinite;
-
-}
-
-@keyframes glow{
-
-0%{
-
-transform:translate(-50%,0);
-
-}
-
-50%{
-
-transform:translate(-42%,120px);
-
-}
-
-100%{
-
-transform:translate(-50%,0);
-
-}
-
-}
-
-/* ==================== */
-
-nav{
-
-position:fixed;
-
-top:20px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-width:min(1200px,92%);
-
-height:75px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 30px;
-
-background:rgba(255,255,255,.05);
-
-backdrop-filter:blur(25px);
-
-border:1px solid rgba(255,255,255,.08);
-
-border-radius:25px;
-
-z-index:999;
-
-box-shadow:
-
-0 10px 50px rgba(0,0,0,.5);
-
-}
-
-.logo{
-
-font-size:28px;
-
-font-weight:900;
-
-letter-spacing:-2px;
-
-}
-
-.logo span{
-
-color:#f59e0b;
-
-}
-
-nav a{
-
-text-decoration:none;
-
-color:white;
-
-font-size:13px;
-
-font-weight:700;
-
-letter-spacing:2px;
-
-margin-left:25px;
-
-transition:.4s;
-
-}
-
-nav a:hover{
-
-color:#f59e0b;
-
-}
-
-/* ================= */
-
-.hero{
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-position:relative;
-
-overflow:hidden;
-
-padding:120px 30px;
-
-}
-
-.hero::before{
-
-content:"";
-
-position:absolute;
-
-width:650px;
-
-height:650px;
-
-border-radius:50%;
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#f59e0b,
-
-#ffcf70);
-
-filter:blur(120px);
-
-opacity:.15;
-
-animation:rotateSphere 12s linear infinite;
-
-}
-
-@keyframes rotateSphere{
-
-0%{
-
-transform:rotate(0deg) scale(1);
-
-}
-
-50%{
-
-transform:rotate(180deg) scale(1.15);
-
-}
-
-100%{
-
-transform:rotate(360deg) scale(1);
-
-}
-
-}
-
-.hero-content{
-
-position:relative;
-
-z-index:2;
-
-text-align:center;
-
-max-width:1100px;
-
-}
-
-.badge{
-
-display:inline-flex;
-
-align-items:center;
-
-gap:10px;
-
-padding:12px 24px;
-
-border-radius:999px;
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(255,255,255,.08);
-
-font-size:13px;
-
-font-weight:700;
-
-letter-spacing:2px;
-
-margin-bottom:35px;
-
-}
-
-.hero h1{
-
-font-size:clamp(70px,12vw,170px);
-
-font-weight:900;
-
-line-height:.88;
-
-letter-spacing:-7px;
-
-text-transform:uppercase;
-
-}
-
-.hero h1 span{
-
-background:
-
-linear-gradient(
-
-90deg,
-
-#f59e0b,
-
-#ffe29f);
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-
-}
-
-.hero p{
-
-margin:35px auto;
-
-max-width:700px;
-
-font-size:18px;
-
-line-height:1.8;
-
-color:#a1a1aa;
-
-}
-
-.hero-buttons{
-
-display:flex;
-
-justify-content:center;
-
-gap:25px;
-
-flex-wrap:wrap;
-
-margin-top:50px;
-
-}
-
-.primary{
-
-padding:20px 42px;
-
-border-radius:18px;
-
-background:
-
-linear-gradient(
-
-90deg,
-
-#f59e0b,
-
-#ffca62);
-
-color:black;
-
-font-weight:900;
-
-font-size:14px;
-
-letter-spacing:2px;
-
-transition:.4s;
-
-cursor:pointer;
-
-box-shadow:
-
-0 0 35px rgba(245,158,11,.45);
-
-}
-
-.primary:hover{
-
-transform:translateY(-6px);
-
-box-shadow:
-
-0 20px 70px rgba(245,158,11,.55);
-
-}
-
-.secondary{
-
-padding:20px 42px;
-
-border-radius:18px;
-
-border:1px solid rgba(255,255,255,.12);
-
-background:rgba(255,255,255,.05);
-
-backdrop-filter:blur(20px);
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.4s;
-
-}
-
-.secondary:hover{
-
-background:rgba(255,255,255,.09);
-
-}
-
-/* ==================== */
-
-.stats{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:30px;
-
-max-width:1200px;
-
-margin:auto;
-
-padding:40px;
-
-}
-
-.stat{
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(255,255,255,.08);
-
-border-radius:30px;
-
-padding:45px;
-
-backdrop-filter:blur(30px);
-
-transition:.5s;
-
-}
-
-.stat:hover{
-
-transform:translateY(-12px);
-
-box-shadow:
-
-0 25px 70px rgba(0,0,0,.5);
-
-}
-
-.stat h2{
-
-font-size:60px;
-
-font-weight:900;
-
-color:#f59e0b;
-
-}
-
-.stat p{
-
-margin-top:10px;
-
-color:#999;
-
-letter-spacing:2px;
-
-font-size:13px;
-
-text-transform:uppercase;
-
-}
-
-@media(max-width:900px){
-
-.stats{
-
-grid-template-columns:1fr 1fr;
-
-}
-
-}
-
-@media(max-width:700px){
-
-.stats{
-
-grid-template-columns:1fr;
-
-}
-
-.hero h1{
-
-letter-spacing:-3px;
-
-}
-
-nav{
-
-display:none;
-
-}
-
-}
-
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,sans-serif;
+  }
+  html{
+    scroll-behavior:smooth;
+  }
+  body{
+    background:
+      radial-gradient(circle at top left, rgba(245,158,11,.18), transparent 35%),
+      radial-gradient(circle at bottom right, rgba(255,255,255,.05), transparent 45%),
+      #050505;
+    overflow-x:hidden;
+    color:white;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    width:200%;
+    height:200%;
+    left:-50%;
+    top:-50%;
+    background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size:30px 30px;
+    animation:gridMove 20s linear infinite;
+    opacity:.25;
+    pointer-events:none;
+  }
+
+  @keyframes gridMove{
+    0%{ transform:translateY(0); }
+    100%{ transform:translateY(60px); }
+  }
+
+  /* SFONDO GLOW */
+  .glow{
+    position:fixed;
+    width:700px;
+    height:700px;
+    background:radial-gradient(circle, rgba(245,158,11,.22), transparent 70%);
+    filter:blur(90px);
+    pointer-events:none;
+    left:50%;
+    top:0;
+    transform:translateX(-50%);
+    animation:glow 10s ease-in-out infinite;
+  }
+
+  @keyframes glow{
+    0%{ transform:translate(-50%,0); }
+    50%{ transform:translate(-42%,120px); }
+    100%{ transform:translate(-50%,0); }
+  }
+
+  /* NAVBAR */
+  nav{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(1200px,92%);
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(25px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:25px;
+    z-index:999;
+    box-shadow:0 10px 50px rgba(0,0,0,.5);
+  }
+  .logo{
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:-2px;
+  }
+  .logo span{ color:#f59e0b; }
+  nav a{
+    text-decoration:none;
+    color:white;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:2px;
+    margin-left:25px;
+    transition:.4s;
+  }
+  nav a:hover{ color:#f59e0b; }
+
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    padding:120px 30px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    width:650px;
+    height:650px;
+    border-radius:50%;
+    background:linear-gradient(135deg, #f59e0b, #ffcf70);
+    filter:blur(120px);
+    opacity:.15;
+    animation:rotateSphere 12s linear infinite;
+  }
+  @keyframes rotateSphere{
+    0%{ transform:rotate(0deg) scale(1); }
+    50%{ transform:rotate(180deg) scale(1.15); }
+    100%{ transform:rotate(360deg) scale(1); }
+  }
+  .hero-content{ position:relative; z-index:2; text-align:center; max-width:1100px; }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 24px;
+    border-radius:999px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:2px;
+    margin-bottom:35px;
+  }
+  .hero h1{
+    font-size:clamp(50px, 10vw, 140px);
+    font-weight:900;
+    line-height:.88;
+    letter-spacing:-4px;
+    text-transform:uppercase;
+  }
+  .hero h1 span{
+    background:linear-gradient(90deg, #f59e0b, #ffe29f);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .hero p{
+    margin:35px auto;
+    max-width:700px;
+    font-size:18px;
+    line-height:1.8;
+    color:#a1a1aa;
+  }
+  .hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+    margin-top:50px;
+  }
+  .primary{
+    padding:20px 42px;
+    border-radius:18px;
+    background:linear-gradient(90deg, #f59e0b, #ffca62);
+    color:black;
+    font-weight:900;
+    font-size:14px;
+    letter-spacing:2px;
+    transition:.4s;
+    cursor:pointer;
+    box-shadow:0 0 35px rgba(245,158,11,.45);
+  }
+  .primary:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 70px rgba(245,158,11,.55);
+  }
+  .secondary{
+    padding:20px 42px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(20px);
+    font-weight:700;
+    cursor:pointer;
+    transition:.4s;
+  }
+  .secondary:hover{ background:rgba(255,255,255,.09); }
+
+  /* STATS STYLES */
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+    max-width:1200px;
+    margin:auto;
+    padding:40px;
+  }
+  .stat{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:30px;
+    padding:45px;
+    backdrop-filter:blur(30px);
+    transition:.5s;
+  }
+  .stat:hover{
+    transform:translateY(-12px);
+    box-shadow:0 25px 70px rgba(0,0,0,.5);
+  }
+  .stat h2{ font-size:60px; font-weight:900; color:#f59e0b; }
+  .stat p{ margin-top:10px; color:#999; letter-spacing:2px; font-size:13px; text-transform:uppercase; }
+
+  /* LA CARD FONDAMENTALE MANCANTE */
+  .card {
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 24px;
+    padding: 30px;
+    backdrop-filter: blur(20px);
+    text-align: center;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    will-change: transform;
+    transition: transform 0.1s ease-out, box-shadow 0.3s ease; /* Transizione morbida solo al mouseleave */
+  }
+  .card:hover {
+    box-shadow: 0 25px 80px rgba(0,0,0,.6);
+  }
+  .card h2 {
+    font-size: 44px;
+    font-weight: 900;
+    color: #f59e0b;
+  }
+  .card p {
+    color: #aaa;
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-top: 5px;
+  }
+
+  /* ACADEMY 3D CARDS */
+  .grid3d{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .card3d{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    padding:30px;
+    border-radius:20px;
+    backdrop-filter:blur(20px);
+    transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+    transform-style:preserve-3d;
+    cursor:pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .card3d h3{ font-size:24px; font-weight:900; color:#f59e0b; }
+  .card3d p{ margin-top:10px; color:#aaa; font-size:13px; line-height:1.6; }
+  .card3d:hover{ box-shadow:0 30px 80px rgba(0,0,0,.5); }
+  .card3d::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(245,158,11,.15),transparent 60%);
+    opacity:0;
+    transition:.3s;
+  }
+  .card3d:hover::before{ opacity:1; }
+
+  /* BENTO LAYOUT */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .bento-big {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* BOTTONI GLOBALI */
+  .btn-primary{
+    background:#f59e0b;
+    color:black;
+    font-weight:900;
+    border-radius:12px;
+    padding:14px 22px;
+    border:none;
+    cursor:pointer;
+    display: inline-block;
+    width: 100%;
+    margin-top: 15px;
+  }
+  .btn-ghost{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    color:white;
+    border-radius:12px;
+    padding:14px 22px;
+    cursor:pointer;
+    display: inline-block;
+    width: 100%;
+    margin-top: 15px;
+  }
+  .btn-primary:hover, .btn-ghost:hover {
+    transform: translateY(-3px);
+  }
+
+  /* RESPONSIVE MEDIA QUERIES */
+  @media(max-width:1024px){
+    .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    .bento-big { grid-column: span 2; }
+    .grid3d { grid-template-columns: 1fr 1fr; }
+  }
+  @media(max-width:900px){
+    .stats{ grid-template-columns:1fr 1fr; }
+  }
+  @media(max-width:700px){
+    .stats{ grid-template-columns:1fr; }
+    .hero h1{ letter-spacing:-2px; }
+    nav{ display:none; }
+    .bento-grid { grid-template-columns: 1fr; }
+    .bento-big { grid-column: span 1; grid-row: span 1; }
+    .grid3d { grid-template-columns: 1fr; }
+  }
 </style>
-
 </head>
-
 <body>
 
 <div class="glow"></div>
 
 <nav>
-
-<div class="logo">
-
-IRON<span>ELITE</span>
-
-</div>
-
-<div>
-
-<a href="#">HOME</a>
-
-<a href="#">ACADEMY</a>
-
-<a href="#">AI</a>
-
-<a href="#">PROGRAMS</a>
-
-<a href="#">CONTACT</a>
-
-</div>
-
+  <div class="logo">IRON<span>ELITE</span></div>
+  <div>
+    <a href="#">HOME</a>
+    <a href="#">ACADEMY</a>
+    <a href="#">AI</a>
+    <a href="#">PROGRAMS</a>
+    <a href="#">CONTACT</a>
+  </div>
 </nav>
 
 <section class="hero">
-
-<div class="hero-content">
-
-<div class="badge">
-
-⚡ POWERED BY AI PERFORMANCE
-
-</div>
-
-<h1>
-
-BECOME<br>
-
-<span>UNSTOPPABLE</span>
-
-</h1>
-
-<p>
-
-La piattaforma premium che combina Intelligenza Artificiale,
-analisi delle performance e programmazione professionale per
-costruire forza, massa muscolare e prestazioni ad un livello superiore.
-
-</p>
-
-<div class="hero-buttons">
-
-<div class="primary">
-
-START NOW
-
-</div>
-
-<div class="secondary">
-
-WATCH DEMO
-
-</div>
-
-</div>
-
-</div>
-
+  <div class="hero-content">
+    <div class="badge">⚡ POWERED BY AI PERFORMANCE</div>
+    <h1>BECOME<br><span>UNSTOPPABLE</span></h1>
+    <p>La piattaforma premium che combina Intelligenza Artificiale, analisi delle performance e programmazione professionale per costruire forza, massa muscolare e prestazioni ad un livello superiore.</p>
+    <div class="hero-buttons">
+      <div class="primary">START NOW</div>
+      <div class="secondary">WATCH DEMO</div>
+    </div>
+  </div>
 </section>
 
 <section class="stats">
-
-<div class="stat">
-
-<h2>1200+</h2>
-
-<p>ATLETI</p>
-
-</div>
-
-<div class="stat">
-
-<h2>98%</h2>
-
-<p>SUCCESS RATE</p>
-
-</div>
-
-<div class="stat">
-
-<h2>24/7</h2>
-
-<p>AI COACH</p>
-
-</div>
-
-<div class="stat">
-
-<h2>320K</h2>
-
-<p>WORKOUTS</p>
-
-</div>
-
+  <div class="stat">
+    <h2>1200+</h2>
+    <p>ATLETI</p>
+  </div>
+  <div class="stat">
+    <h2>98%</h2>
+    <p>SUCCESS RATE</p>
+  </div>
+  <div class="stat">
+    <h2>24/7</h2>
+    <p>AI COACH</p>
+  </div>
+  <div class="stat">
+    <h2>320K</h2>
+    <p>WORKOUTS</p>
+  </div>
 </section>
-<!-- =========================
-BENTO DASHBOARD
-========================= -->
 
+<!-- BENTO DASHBOARD -->
 <section style="max-width:1100px;margin:100px auto;padding:20px;">
-
-  <h2 style="font-size:40px;font-weight:900;text-align:center;margin-bottom:40px;">
-    AI PERFORMANCE DASHBOARD
-  </h2>
-
-  <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px;">
-
-    <!-- BIG CARD -->
-    <div class="card" style="text-align:left;padding:30px;">
+  <h2 style="font-size:40px;font-weight:900;text-align:center;margin-bottom:40px;">AI PERFORMANCE DASHBOARD</h2>
+  <div class="bento-grid">
+    <div class="card bento-big" style="text-align:left; display: flex; flex-direction: column; justify-content: center;">
       <p style="font-size:10px;letter-spacing:3px;color:#888;">PERFORMANCE SCORE</p>
-      <h1 style="font-size:80px;color:#f59e0b;font-weight:900;">92</h1>
-      <p style="color:#aaa;margin-top:10px;">Indice di performance generale atleta</p>
+      <h1 style="font-size:80px;color:#f59e0b;font-weight:900;line-height: 1;">92</h1>
+      <p style="color:#aaa;margin-top:15px;">Indice di performance generale atleta basato sui pattern di recupero settimanali.</p>
     </div>
-
     <div class="card">
       <h2>89%</h2>
       <p>RECOVERY</p>
     </div>
-
     <div class="card">
       <h2>3014</h2>
       <p>KCAL</p>
     </div>
-
     <div class="card">
       <h2>198g</h2>
       <p>PROTEINE</p>
     </div>
-
     <div class="card">
-      <h2>UPPER</h2>
+      <h2 style="font-size:32px; margin-top: 10px;">UPPER</h2>
       <p>WORKOUT</p>
     </div>
-
-    <div class="card">
+    <div class="card" style="grid-column: span 2;">
       <h2>4.2x</h2>
-      <p>STRENGTH</p>
+      <p>STRENGTH EFFICIENCY</p>
     </div>
-
   </div>
 </section>
 
-<!-- =========================
-AI GENERATOR
-========================= -->
-
+<!-- AI GENERATOR -->
 <section style="max-width:900px;margin:120px auto;padding:20px;">
-
   <div class="card" style="padding:40px;text-align:left;">
-
-    <h2 style="font-size:34px;font-weight:900;">
-      AI WORKOUT GENERATOR
-    </h2>
-
-    <p style="color:#aaa;margin:15px 0 30px;">
-      Genera una scheda personalizzata in base al tuo obiettivo.
-    </p>
-
-    <select id="goal"
-      style="width:100%;padding:15px;margin-bottom:15px;background:#111;border:1px solid #333;color:white;border-radius:10px;">
+    <h2 style="font-size:34px;font-weight:900;">AI WORKOUT GENERATOR</h2>
+    <p style="color:#aaa;margin:15px 0 30px;">Genera una scheda personalizzata in base al tuo obiettivo.</p>
+    <select id="goal" style="width:100%;padding:15px;margin-bottom:15px;background:#111;border:1px solid #333;color:white;border-radius:10px;">
       <option>Massa Muscolare</option>
       <option>Forza</option>
       <option>Definizione</option>
     </select>
-
-    <button onclick="generateWorkout()"
-      style="width:100%;padding:15px;background:#f59e0b;border:none;border-radius:12px;font-weight:900;cursor:pointer;">
-      GENERA PROGRAMMA
-    </button>
-
+    <button onclick="generateWorkout()" style="width:100%;padding:15px;background:#f59e0b;border:none;border-radius:12px;font-weight:900;color:black;cursor:pointer;">GENERA PROGRAMMA</button>
     <div id="out" style="margin-top:20px;"></div>
-
   </div>
 </section>
 
-<script>
-function generateWorkout(){
-  const data=[
-    "Bench Press 4x8",
-    "Squat 5x5",
-    "Pull Ups 4xMax",
-    "Shoulder Press 4x10",
-    "Row 4x12"
-  ];
-
-  const box=document.getElementById("out");
-  box.innerHTML="";
-
-  data.sort(()=>Math.random()-0.5);
-
-  data.slice(0,4).forEach(x=>{
-    const div=document.createElement("div");
-    div.className="card";
-    div.style.marginTop="10px";
-    div.innerHTML="🏋️ "+x;
-    box.appendChild(div);
-  });
-}
-</script>
-<!-- =========================
-ACADEMY 3D SECTION
-========================= -->
-
+<!-- ACADEMY EXERCISES -->
 <section style="max-width:1200px;margin:140px auto;padding:20px;">
-
-  <h2 style="font-size:42px;font-weight:900;text-align:center;margin-bottom:20px;">
-    ACADEMY EXERCISES
-  </h2>
-
-  <p style="text-align:center;color:#aaa;margin-bottom:60px;">
-    Passa il mouse sulle card per attivare l'effetto 3D
-  </p>
-
+  <h2 style="font-size:42px;font-weight:900;text-align:center;margin-bottom:20px;">ACADEMY EXERCISES</h2>
+  <p style="text-align:center;color:#aaa;margin-bottom:60px;">Passa il mouse sulle card per attivare l'effetto 3D</p>
   <div class="grid3d">
-
     <div class="card3d">
       <h3>CHEST</h3>
       <p>Panca, dips, isolamento e power building.</p>
     </div>
-
     <div class="card3d">
       <h3>BACK</h3>
       <p>Trazioni, rematori e larghezza dorsale.</p>
     </div>
-
     <div class="card3d">
       <h3>LEGS</h3>
       <p>Squat, pressa e forza esplosiva.</p>
     </div>
-
     <div class="card3d">
       <h3>ARMS</h3>
       <p>Bicipiti e tricipiti ad alta intensità.</p>
     </div>
-
   </div>
 </section>
 
-<style>
+<!-- IRON ELITE AI CORE -->
+<section style="max-width:1100px;margin:140px auto;padding:20px;">
+  <h2 style="font-size:42px;font-weight:900;text-align:center;">IRON ELITE AI CORE</h2>
+  <p style="text-align:center;color:#aaa;margin:20px 0 60px;">Analisi automatica performance, fatica e progresso atleta</p>
+  <div class="bento-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:3px;color:#888;">FATIGUE INDEX</p>
+      <h2 id="fatigue" style="font-size:60px;color:#f59e0b;">10</h2>
+      <p style="color:#aaa;">Livello di affaticamento muscolare</p>
+    </div>
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:3px;color:#888;">POWER SCORE</p>
+      <h2 id="power" style="font-size:60px;">20</h2>
+      <p style="color:#aaa;">Forza complessiva stimata</p>
+    </div>
+    <div class="card">
+      <p style="font-size:10px;letter-spacing:3px;color:#888;">RECOVERY</p>
+      <h2 id="recovery" style="font-size:60px;color:#00ff99;">91%</h2>
+      <p style="color:#aaa;">Capacità di recupero attuale</p>
+    </div>
+  </div>
+</section>
 
-.grid3d{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
-}
+<!-- PROGRESS GRAPH -->
+<section style="max-width:1100px;margin:100px auto;padding:20px;">
+  <div class="card" style="padding:40px;">
+    <h2 style="font-size:30px;font-weight:900;margin-bottom:30px;">PERFORMANCE PROGRESSION</h2>
+    <svg viewBox="0 0 600 200" style="width:100%;height:200px;">
+      <polyline points="0,150 100,120 200,140 300,80 400,100 500,40 600,60" fill="none" stroke="#f59e0b" stroke-width="4"/>
+      <polyline points="0,150 100,120 200,140 300,80 400,100 500,40 600,60" fill="rgba(245,158,11,.1)" stroke="none"/>
+    </svg>
+  </div>
+</section>
 
-.card3d{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  padding:30px;
-  border-radius:20px;
-  backdrop-filter:blur(20px);
-  transition:.2s;
-  transform-style:preserve-3d;
-  cursor:pointer;
-}
+<!-- IRON ELITE PRICING -->
+<section style="max-width:1100px;margin:140px auto;padding:20px;text-align:center;">
+  <p style="color:#f59e0b;letter-spacing:6px;font-size:12px;font-weight:900;">MEMBERSHIP</p>
+  <h2 style="font-size:48px;font-weight:900;margin-top:20px;">IRON ELITE ACCESS</h2>
+  <p style="color:#aaa;margin:20px auto 60px;max-width:600px;">La piattaforma completa per atleti che vogliono performance reali, dati reali e progressi misurabili.</p>
+  <div class="bento-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="card">
+      <h3 style="font-size:20px;font-weight:900;">STARTER</h3>
+      <h2>€9</h2>
+      <p>Programmi base + AI limitata</p>
+      <button class="btn-ghost">SELECT</button>
+    </div>
+    <div class="card" style="border:1px solid #f59e0b;">
+      <h3 style="font-size:20px;font-weight:900;">IRON ELITE</h3>
+      <h2 style="font-size:50px;">€29</h2>
+      <p>AI completa + tracking + analytics</p>
+      <button class="btn-primary">MOST POPULAR</button>
+    </div>
+    <div class="card">
+      <h3 style="font-size:20px;font-weight:900;">PRO ATHLETE</h3>
+      <h2>€59</h2>
+      <p>Coaching avanzato + AI full</p>
+      <button class="btn-ghost">SELECT</button>
+    </div>
+  </div>
+</section>
 
-.card3d h3{
-  font-size:24px;
-  font-weight:900;
-  color:#f59e0b;
-}
+<!-- FINAL CTA -->
+<section style="max-width:900px;margin:160px auto;text-align:center;padding: 20px;">
+  <div class="card" style="padding:60px;">
+    <h2 style="font-size:42px;font-weight:900;">READY TO TRANSFORM?</h2>
+    <p style="color:#aaa;margin:20px 0 40px;">Entra in IRON ELITE e inizia a costruire performance reali oggi stesso.</p>
+    <button class="btn-primary" style="padding:18px 40px; max-width: 300px; margin: 0 auto;">START YOUR JOURNEY</button>
+  </div>
+</section>
 
-.card3d p{
-  margin-top:10px;
-  color:#aaa;
-  font-size:13px;
-  line-height:1.6;
-}
+<footer style="text-align:center;padding:60px 20px;color:#555;font-size:12px;">
+  IRON ELITE © 2026 — ALL RIGHTS RESERVED
+</footer>
 
-/* === 3D HOVER EFFECT === */
-.card3d:hover{
-  transform:
-    perspective(800px)
-    rotateX(10deg)
-    rotateY(-10deg)
-    translateY(-10px);
-  box-shadow:0 30px 80px rgba(0,0,0,.5);
-}
-
-/* LIGHT FOLLOW EFFECT */
-.card3d::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(245,158,11,.15),transparent 60%);
-  opacity:0;
-  transition:.3s;
-}
-
-.card3d:hover::before{
-  opacity:1;
-}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .grid3d{
-    grid-template-columns:1fr 1fr;
-  }
-}
-
-@media(max-width:600px){
-  .grid3d{
-    grid-template-columns:1fr;
-  }
-}
-
-</style>
-
+<!-- SCRIPTS -->
 <script>
-// mouse tracking light effect
+// Generatore di schede
+function generateWorkout(){
+  const data=["Bench Press 4x8","Squat 5x5","Pull Ups 4xMax","Shoulder Press 4x10","Row 4x12"];
+  const box=document.getElementById("out");
+  box.innerHTML="";
+  data.sort(()=>Math.random()-0.5);
+  data.slice(0,4).forEach(x=>{
+    const div=document.createElement("div");
+    div.className="card";
+    div.style.marginTop="10px";
+    div.style.padding="15px";
+    div.style.textAlign="left";
+    div.innerHTML="🏋️ "+x;
+    box.appendChild(div);
+  });
+}
+
+// Animazione numeri fake AI
+function animateValue(id, start, end, duration){
+  let obj = document.getElementById(id);
+  if(!obj) return;
+  let range = end - start;
+  let current = start;
+  let increment = end > start ? 1 : -1;
+  let stepTime = Math.abs(Math.floor(duration / range));
+  let timer = setInterval(function(){
+    current += increment;
+    obj.innerText = id === "recovery" ? current + "%" : current;
+    if(current == end){ clearInterval(timer); }
+  }, stepTime);
+}
+
+setTimeout(()=>{
+  animateValue("fatigue", 10, 72, 1200);
+  animateValue("power", 20, 84, 1200);
+},500);
+
+// Tracciamento mouse effetto 3D (Academy)
 document.querySelectorAll(".card3d").forEach(card=>{
   card.addEventListener("mousemove",(e)=>{
     const rect=card.getBoundingClientRect();
@@ -908,240 +574,30 @@ document.querySelectorAll(".card3d").forEach(card=>{
     const y=((e.clientY-rect.top)/rect.height)*100;
     card.style.setProperty("--x",x+"%");
     card.style.setProperty("--y",y+"%");
+    
+    const rotX = ((e.clientY - rect.top) / rect.height - 0.5) * -20;
+    const rotY = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+    card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-5px)`;
+  });
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0)";
   });
 });
-</script>
-<!-- =========================
-IRON ELITE AI CORE
-========================= -->
 
-<section style="max-width:1100px;margin:140px auto;padding:20px;">
-
-  <h2 style="font-size:42px;font-weight:900;text-align:center;">
-    IRON ELITE AI CORE
-  </h2>
-
-  <p style="text-align:center;color:#aaa;margin:20px 0 60px;">
-    Analisi automatica performance, fatica e progresso atleta
-  </p>
-
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-
-    <div class="card">
-      <p style="font-size:10px;letter-spacing:3px;color:#888;">FATIGUE INDEX</p>
-      <h2 id="fatigue" style="font-size:60px;color:#f59e0b;">72</h2>
-      <p style="color:#aaa;">Livello di affaticamento muscolare</p>
-    </div>
-
-    <div class="card">
-      <p style="font-size:10px;letter-spacing:3px;color:#888;">POWER SCORE</p>
-      <h2 id="power" style="font-size:60px;">84</h2>
-      <p style="color:#aaa;">Forza complessiva stimata</p>
-    </div>
-
-    <div class="card">
-      <p style="font-size:10px;letter-spacing:3px;color:#888;">RECOVERY</p>
-      <h2 id="recovery" style="font-size:60px;color:#00ff99;">91%</h2>
-      <p style="color:#aaa;">Capacità di recupero attuale</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- =========================
-PROGRESS GRAPH
-========================= -->
-
-<section style="max-width:1100px;margin:100px auto;padding:20px;">
-
-  <div class="card" style="padding:40px;">
-
-    <h2 style="font-size:30px;font-weight:900;margin-bottom:30px;">
-      PERFORMANCE PROGRESSION
-    </h2>
-
-    <svg viewBox="0 0 600 200" style="width:100%;height:200px;">
-
-      <polyline
-        points="0,150 100,120 200,140 300,80 400,100 500,40 600,60"
-        fill="none"
-        stroke="#f59e0b"
-        stroke-width="4"
-      />
-
-      <polyline
-        points="0,150 100,120 200,140 300,80 400,100 500,40 600,60"
-        fill="rgba(245,158,11,.1)"
-        stroke="none"
-      />
-
-    </svg>
-
-  </div>
-
-</section>
-
-<!-- =========================
-SCRIPT AI SIMULATION
-========================= -->
-
-<script>
-
-// animazione numeri (fake AI feeling)
-function animateValue(id, start, end, duration){
-  let obj = document.getElementById(id);
-  let range = end - start;
-  let current = start;
-  let increment = end > start ? 1 : -1;
-  let stepTime = Math.abs(Math.floor(duration / range));
-
-  let timer = setInterval(function(){
-    current += increment;
-    obj.innerText = current;
-    if(current == end){
-      clearInterval(timer);
-    }
-  }, stepTime);
-}
-
-// start AI animation
-setTimeout(()=>{
-  animateValue("fatigue", 10, 72, 1200);
-  animateValue("power", 20, 84, 1200);
-},500);
-
-</script>
-<!-- =========================
-IRON ELITE PRICING
-========================= -->
-
-<section style="max-width:1100px;margin:140px auto;padding:20px;text-align:center;">
-
-  <p style="color:#f59e0b;letter-spacing:6px;font-size:12px;font-weight:900;">
-    MEMBERSHIP
-  </p>
-
-  <h2 style="font-size:48px;font-weight:900;margin-top:20px;">
-    IRON ELITE ACCESS
-  </h2>
-
-  <p style="color:#aaa;margin:20px auto 60px;max-width:600px;">
-    La piattaforma completa per atleti che vogliono performance reali, dati reali e progressi misurabili.
-  </p>
-
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-
-    <div class="card">
-      <h3 style="font-size:20px;font-weight:900;">STARTER</h3>
-      <h2 style="font-size:40px;color:#f59e0b;">€9</h2>
-      <p style="color:#aaa;margin:10px 0;">Programmi base + AI limitata</p>
-      <button class="btn btn-ghost">SELECT</button>
-    </div>
-
-    <div class="card" style="border:1px solid #f59e0b;">
-      <h3 style="font-size:20px;font-weight:900;">IRON ELITE</h3>
-      <h2 style="font-size:50px;color:#f59e0b;">€29</h2>
-      <p style="color:#aaa;margin:10px 0;">AI completa + tracking + analytics</p>
-      <button class="btn btn-primary">MOST POPULAR</button>
-    </div>
-
-    <div class="card">
-      <h3 style="font-size:20px;font-weight:900;">PRO ATHLETE</h3>
-      <h2 style="font-size:40px;color:#f59e0b;">€59</h2>
-      <p style="color:#aaa;margin:10px 0;">Coaching avanzato + AI full</p>
-      <button class="btn btn-ghost">SELECT</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- =========================
-FINAL CTA
-========================= -->
-
-<section style="max-width:900px;margin:160px auto;text-align:center;">
-
-  <div class="card" style="padding:60px;">
-
-    <h2 style="font-size:42px;font-weight:900;">
-      READY TO TRANSFORM?
-    </h2>
-
-    <p style="color:#aaa;margin:20px 0 40px;">
-      Entra in IRON ELITE e inizia a costruire performance reali oggi stesso.
-    </p>
-
-    <button class="btn btn-primary" style="padding:18px 40px;">
-      START YOUR JOURNEY
-    </button>
-
-  </div>
-
-</section>
-
-<!-- =========================
-FOOTER
-========================= -->
-
-<footer style="text-align:center;padding:60px 20px;color:#555;font-size:12px;">
-
-  IRON ELITE © 2026 — ALL RIGHTS RESERVED
-
-</footer>
-
-<style>
-
-/* polish hover globale */
-.card, .btn{
-  transition:.3s;
-}
-
-/* glow extra su hover */
-.card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 25px 80px rgba(0,0,0,.6);
-}
-
-/* bottone premium */
-.btn-primary{
-  background:#f59e0b;
-  color:black;
-  font-weight:900;
-  border-radius:12px;
-  padding:14px 22px;
-  border:none;
-  cursor:pointer;
-}
-
-.btn-ghost{
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.1);
-  color:white;
-  border-radius:12px;
-  padding:14px 22px;
-  cursor:pointer;
-}
-
-.btn:hover{
-  transform:translateY(-3px);
-}
-
-</style>
- 
-<script>
-
-// micro-interaction finale
+// Tracciamento mouse globale sulle .card standard (senza scatti di transizione)
 document.querySelectorAll(".card").forEach(c=>{
   c.addEventListener("mousemove",(e)=>{
     const r=c.getBoundingClientRect();
     const x=(e.clientX-r.left)/r.width-0.5;
     const y=(e.clientY-r.top)/r.height-0.5;
+    c.style.transition = "none"; // Rimuove il lag mentre ti muovi
     c.style.transform=`translateY(-8px) rotateX(${y*6}deg) rotateY(${x*6}deg)`;
   });
-
   c.addEventListener("mouseleave",()=>{
+    c.style.transition = "transform 0.3s ease"; // Rilassa al ritorno
     c.style.transform="translateY(0) rotateX(0) rotateY(0)";
   });
 });
-
 </script>
+</body>
+</html>
